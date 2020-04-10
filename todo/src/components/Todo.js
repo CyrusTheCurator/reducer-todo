@@ -30,13 +30,32 @@ const Todo = () => {
         />
         <button
           onClick={() => {
+            setnewItemText("");
             dispatch({
               type: "ADD_ITEM",
-              payload: { name: newItemText },
+              payload: { name: newItemText, id: Date(), isCompleted: false },
             });
           }}
         >
           Add Item
+        </button>
+        <button
+          onClick={() => {
+            dispatch({
+              type: "CLEAR_ALL",
+            });
+          }}
+        >
+          Clear All
+        </button>
+        <button
+          onClick={() => {
+            dispatch({
+              type: "CLEAR_COMPLETED",
+            });
+          }}
+        >
+          Clear Completed
         </button>
       </div>
 
@@ -44,7 +63,29 @@ const Todo = () => {
         {toDoItemsState.itemsArray.map((elem) => {
           return (
             <div>
-              {elem.name} <button>Remove Item</button>
+              {elem.name}{" "}
+              <button
+                onClick={() => {
+                  console.log(elem);
+                  dispatch({
+                    type: "REMOVE_ITEM",
+                    payload: elem,
+                  });
+                }}
+              >
+                Remove Item
+              </button>
+              <button
+                onClick={() => {
+                  dispatch({
+                    type: "TOGGLE_COMPLETED",
+                    payload: elem,
+                  });
+                }}
+              >
+                Mark Completed
+              </button>
+              currently it's {JSON.stringify(elem.isCompleted)}
             </div>
           );
         })}
