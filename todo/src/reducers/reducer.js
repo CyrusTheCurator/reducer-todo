@@ -27,25 +27,9 @@ export const reducer = (state, action) => {
     case "TOGGLE_COMPLETED":
       return {
         itemsArray: state.itemsArray.map((e) => {
-          console.log(
-            `current element is ${e.id}, comparing to ${action.payload.id}`
-          );
-
           if (e.id === action.payload.id) {
-            console.log(`match!`);
-            console.log(
-              `payload is ${action.payload.isCompleted}, opposite is ${!action
-                .payload.isCompleted}`
-            );
-            e.isCompleted = !action.payload.isCompleted;
-            console.log(
-              `After Reassignment, payload is ${
-                action.payload.isCompleted
-              }, opposite is ${!action.payload.isCompleted}`
-            );
-            return e;
+            return { ...e, isCompleted: !e.isCompleted };
           }
-          console.log("element prepped for assignment to index is, ", e);
           return e;
         }),
       };
